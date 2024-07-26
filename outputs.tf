@@ -7,7 +7,7 @@ output "elastic_ip_nat_gateway_1b_public_ip" {
 }
 
 output "nsse_production_vpc_internet_gateway_id" {
-  value = aws_internet_gateway.nsse_production_vpc_internet_gateway.id
+  value = aws_internet_gateway.this.id
 }
 
 output "nat_gateway_1a_id" {

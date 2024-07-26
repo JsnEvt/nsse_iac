@@ -3,9 +3,9 @@ resource "aws_route_table" "public" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.nsse_production_vpc_internet_gateway.id
+    gateway_id = aws_internet_gateway.this.id
   }
-  tags       = merge({ Name = "nsse-production-vpc-public-route-table" }, var.tags)
+  tags       = merge({ Name = "${var.vpc_resources.vpc}-${var.vpc_resources.public_route_table}" }, var.tags)
   depends_on = [aws_vpc.this]
 }
 
