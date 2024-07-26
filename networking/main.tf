@@ -16,6 +16,8 @@ provider "aws" {
 
 //o comando terraform init -migrate-state transfere o arquivo *.tfstate para o S3
 
+//e necessario rodar o apply do backend para poder prosseguir com o apply do networking
+//sem ocorrer o erro de "objeto inacessivel networking/terraform.tfstate in s3 bucket"
 terraform {
   backend "s3" {
     bucket         = "nsse-terraform-state-bucket"
