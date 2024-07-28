@@ -1,4 +1,4 @@
-resource "aws_security_group" "allow_shh" {
+resource "aws_security_group" "allow_ssh" {
   name        = var.ec2_resources.ssh_security_groups
   description = "Allow SSH inbound traffic"
   vpc_id      = data.aws_vpc.this.id

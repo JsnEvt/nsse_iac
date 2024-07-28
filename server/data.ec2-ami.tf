@@ -1,7 +1,7 @@
 data "aws_ami" "this" {
-  most_recent  = true
-  owners       = ["136693071363"]
-  architecture = "x86_64"
+  most_recent = true
+  owners      = ["136693071363"]
+  # architecture = "x86_64"
 
   filter {
     name   = "name"
