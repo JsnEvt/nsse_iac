@@ -6,12 +6,12 @@ provider "aws" {
   }
 }
 
-terraform {
-  backend "s3" {
-    bucket         = "nsse-terraform-state-bucket"
-    key            = "server/terraform.tfstate" //dara erro, caso nao seja criada primeiro. (comentar a linha)
-    region         = "us-east-1"
-    encrypt        = true
-    dynamodb_table = "nsse-terraform-state-lock-table"
-  }
-}
+# terraform {
+#   backend "s3" {
+#     bucket         = "nsse-terraform-state-bucket"
+#     key            = "server/terraform.tfstate" //dara erro, caso nao seja criada primeiro. (comentar a linha)
+#     region         = "us-east-1"
+#     encrypt        = true
+#     dynamodb_table = "nsse-terraform-state-lock-table"
+#   }
+# }

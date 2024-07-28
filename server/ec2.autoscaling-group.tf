@@ -6,7 +6,7 @@ resource "aws_autoscaling_group" "control_plane" {
   desired_capacity          = var.control_plane_autoscaling_group.desired_capacity
   health_check_grace_period = var.control_plane_autoscaling_group.health_check_grace_period
   health_check_type         = var.control_plane_autoscaling_group.health_check_type
-  vpc_zone_identifier       = data.aws_subnets.private_subnets.ids
+  vpc_zone_identifier       = data.aws_subnet.private_subnets.id
 
   launch_template {
     name    = aws_launch_template.control_plane.name
