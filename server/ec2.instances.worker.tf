@@ -27,6 +27,11 @@ module "ec2_workers_instances" {
     health_check_grace_period = var.worker_autoscaling_group.health_check_grace_period
     health_check_type         = var.worker_autoscaling_group.health_check_type
     vpc_zone_identifier       = data.aws_subnet.private_subnets.id
+    instance_tags = merge(
+      { PatchGroup = var.patch_group },
+      var.tags,
+      var.worker_autoscaling_group.instance_tags
+    )
     instance_maintenance_policy = {
       min_healthy_percentage = var.worker_autoscaling_group.instance_maintenance_policy.min_healthy_percentage
       max_healthy_percentage = var.worker_autoscaling_group.instance_maintenance_policy.max_healthy_percentage
