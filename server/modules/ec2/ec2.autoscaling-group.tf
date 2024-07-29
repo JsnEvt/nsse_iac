@@ -33,4 +33,10 @@ resource "aws_autoscaling_group" "this" {
     value               = var.tags.Environment
     propagate_at_launch = false
   }
+
+  tag {
+    key                 = "Patch Group"
+    value               = "Production"
+    propagate_at_launch = false
+  }
 }
