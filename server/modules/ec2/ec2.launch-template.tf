@@ -10,7 +10,7 @@ resource "aws_launch_template" "this" {
   user_data                            = var.launch_template.user_data
 
   block_device_mappings {
-    device_name = "/dev/sdf"
+    device_name = "/dev/xvda"
 
     ebs {
       volume_size           = var.launch_template.ebs.size
