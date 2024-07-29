@@ -7,7 +7,7 @@ resource "aws_ssm_association" "debian_production" {
 
   parameters = {
     Operation    = var.debian_production_association.parameters.Operation
-    RebootOption = var.debian_production_association.parameters.RebootIfNeeded
+    RebootOption = var.debian_production_association.parameters.RebootOption
   }
 
   output_location {
