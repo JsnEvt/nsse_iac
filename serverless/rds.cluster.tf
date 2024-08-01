@@ -17,5 +17,10 @@ resource "aws_rds_cluster" "this" {
     max_capacity = var.rds_aurora_cluster.serverlessv2_scaling_configuration.max_capacity
     min_capacity = var.rds_aurora_cluster.serverlessv2_scaling_configuration.min_capacity
   }
+
+  lifecycle {
+    ignore_changes = [availability_zones]
+  }
+
   tags = var.tags
 }
