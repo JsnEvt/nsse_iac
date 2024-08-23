@@ -1,3 +1,13 @@
+/*
+para nao usar credenciais dentro de instancias EC2, usamos instance_profile
+que consiste na criacao de uma role com diversas policies atreladas
+a instance role e atribuido a um instance profile e o instance profile e 
+atrituido a instancia ec2
+
+dessa forma definimos quais instancias terao acesso a um determinado recurso
+dentro do provedor cloud
+*/
+
 data "aws_iam_policy_document" "assume_role" {
   statement {
     effect = "Allow"
