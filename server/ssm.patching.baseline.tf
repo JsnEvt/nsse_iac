@@ -4,6 +4,8 @@ resource "aws_ssm_patch_baseline" "this" {
   approved_patches_enable_non_security = var.debian_patch_baseline.approved_patches_enable_non_security
   operating_system                     = var.debian_patch_baseline.operating_system
 
+  //o bloco dinamico se repete novamnete para instalacao das patches nas maquinas 
+  //workers e control-plane
   dynamic "approval_rule" {
     for_each = var.debian_patch_baseline.approval_rules
     content {

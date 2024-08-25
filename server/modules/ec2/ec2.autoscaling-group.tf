@@ -14,6 +14,7 @@ em que os recursos serao criados
 isso evita a duplicacao de codigo
 */
 
+//este codigo abaixo servira para o preenchimento do bloco dinamico
 locals {
   asg_tags_dictionary = [for key, value in var.auto_scaling_group.instance_tags : {
     key   = key
@@ -43,6 +44,10 @@ resource "aws_autoscaling_group" "this" {
     max_healthy_percentage = var.auto_scaling_group.instance_maintenance_policy.max_healthy_percentage
   }
 
+  //bloco dinamico para iterar sobre todos os blocos "tags" que se repetem
+  //mapeando as tags para um dicionario para serem iterados
+  //e necessario informar o codigo abaixo para que, a cada nova criacao da instancia
+  //o asg chamara as tags de cada bloco dinamico para definir as instancias
   dynamic "tag" {
     for_each = local.asg_tags_dictionary
     content {
