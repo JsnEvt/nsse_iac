@@ -1,3 +1,18 @@
+/*o conceito de fila e tambem utilizado para comunicacao assincrona entre
+microservicos atraves de uma chamada http. neste caso usaremos o padrao 
+publish/subscribe
+o uso do servico SQS pode ser interessante nos casos em que, em um momento, 
+de black friday por exemplo, pode-se escalar automaticamente varias instancias
+para processamento, porem, essa nao e a melhor estrategia. pode-se colocar 
+um sistema de fila que processa as requisicoes sem precisar escalar instancias
+para tal.
+
+o conceito de DLQ dead letter queues visa colocar elementos de fila que 
+falharam em outra fila para posterior analise ou reprocessamento para que nao
+se perca do tracking (fallback) da mensagem ou que fique atrapalhando o processamento 
+das mensagens seguintes
+*/
+
 resource "aws_sqs_queue" "nsse" {
   count = length(var.queues)
 
