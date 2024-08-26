@@ -1,3 +1,11 @@
+//as configuracoes abaixo referem-se a construcao do patchbaseline dentro
+//do systems manager
+//a associacao e possivel verificar dentro do state manager
+//ele associara o Document - RunPatchBaseline ao schedule expression (cronometro)
+//e os targets para atualizacoes periodicas das instancias vinculadas
+//o patch manager informa se as instancias ja estao com compliance
+//o dashboard informara os dados acima
+
 resource "aws_ssm_association" "debian_production" {
   name                = var.debian_production_association.name
   schedule_expression = var.debian_production_association.schedule_expression

@@ -1,5 +1,8 @@
 //criando o bucket para armazenar os logs dos patches feitos pelo systems manager
-
+//no fleet manager no systems manager, vc tem sua frots de instsncias e pode 
+//acessa-las a partir de la
+//quando executado o aws sts get-caller-identity, verificaremos a role
+//que e responsavel por fazer chamadas na api da aws
 resource "aws_s3_bucket" "logs" {
   bucket        = var.logs_bucket.bucket
   force_destroy = var.logs_bucket.force_destroy
@@ -19,6 +22,8 @@ data "aws_iam_policy_document" "allow_access_from_instances" {
     principals {
       type        = "AWS"
       identifiers = [aws_iam_role.instance_role.arn]
+      //o indetificador acima concede permissao para faxer um putObject
+      //no S3 a partir das instancias
     }
 
     actions = [
@@ -26,7 +31,7 @@ data "aws_iam_policy_document" "allow_access_from_instances" {
     ]
 
     resources = [
-      "${aws_s3_bucket.logs.arn}/*",
+      "${aws_s3_bucket.logs.arn}/*" //o /* indica todos os caminhos
     ]
   }
 }
