@@ -52,7 +52,7 @@ resource "aws_autoscaling_group" "this" {
     for_each = local.asg_tags_dictionary
     content {
       key                 = tag.value.key
-      value               = tag.value.vlue
+      value               = tag.value.value
       propagate_at_launch = true
     }
   }
