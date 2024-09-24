@@ -1,0 +1,18 @@
+Formando um tunel para comunicacao com o RDS via instancia na rede privada com o Agent do SSM.
+Precisamos informar o ProxyCommand devido ao fato do DNS(endpoint) NAO ser conhecido.
+O uso do comando foi para acessar o banco Postgres(Aurora).
+
+ssh -i "key-pair.pem" admin@i-instancia -L 5432:endpointRDS.cluster...amazonaws.com:5432 -o ProxyCommand="sh -c \"aws ssm start-session --target %h --document-name AWS-StartSSHSession --parameters 'portNumber=%p'"\"
+
+O comando netstat -plnt exibe as conexoes tuneladas existentes.
+
+Pode-se usar o PGAdmin para abrir/consultar o banco.
+O username e a password pegamos no secret manager.
+A conexao sera feita atraves da instancia que conectamos para alcancar o banco RDS.
+
+Alternativamente, e possivel edit o arquivo ~/.ssh/config
+para adicionar um trecho do comando para simplificar a linha de comando:
+#SSH over Session managerhost i-* mi-*
+    ProxyCommand="sh -c \"aws ssm start-session --target %h --document-name AWS-StartSSHSession --parameters 'portNumber=%p'"
+
+Assim, nao sera necessario chamar o comando Proxy para reconhecer o DNS e obter exito na conexao.
