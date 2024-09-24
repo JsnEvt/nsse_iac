@@ -16,3 +16,5 @@ para adicionar um trecho do comando para simplificar a linha de comando:
     ProxyCommand="sh -c \"aws ssm start-session --target %h --document-name AWS-StartSSHSession --parameters 'portNumber=%p'"
 
 Assim, nao sera necessario chamar o comando Proxy para reconhecer o DNS e obter exito na conexao.
+
+Obs. com o uso do servico PROXY da AWS, o ENDPOINT DO PROXY e que devera ser passado no comando.

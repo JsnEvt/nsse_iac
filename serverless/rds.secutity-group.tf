@@ -21,11 +21,14 @@ resource "aws_security_group" "postgresql" {
     ]
   }
 
+
   ingress {
     from_port = 0
     to_port   = 0
     protocol  = "-1"
-    self      = true
+    //a linha abaixo representa uma referencia cirular. o proprio security group
+    //e acicionado como source na regra de ingress
+    self = true
   }
 
 
