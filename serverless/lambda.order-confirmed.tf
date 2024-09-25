@@ -32,3 +32,9 @@ resource "aws_lambda_function" "order_confirmed" {
     }
   }
 }
+
+//criando a url para ser invocado pela API Gateway
+resource "aws_lambda_function_url" "order_confirmed" {
+  function_name      = aws_lambda_function.order_confirmed.function_name
+  authorization_type = "AWS_IAM"
+}
