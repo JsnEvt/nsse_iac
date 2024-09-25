@@ -1,20 +1,20 @@
 data "archive_file" "lambda" {
   type        = var.lambda_order_confirmed.package_type
-  source_dir  = var.lambda_order_confirmed.source_dir
-  output_path = var.lambda_order_confirmed.output_path
+  source_dir  = "${path.module}/${var.lambda_order_confirmed.source_dir}"
+  output_path = "${path.module}/${var.lambda_order_confirmed.output_path}"
 }
 
 resource "aws_lambda_function" "order_confirmed" {
   # If the file is not in the current working directory you will need to include a
   # path.module in the filename.
-  filename      = var.lambda_order_confirmed.filename
-  function_name = var.lambda_order_confirmed.function_name
-  role          = aws_iam_role.order_confirmed_lambda_role.arn
-  handler       = var.lambda_order_confirmed.handler
-
+  filename         = "${path.module}/${var.lambda_order_confirmed.filename}"
+  function_name    = var.lambda_order_confirmed.function_name
+  role             = aws_iam_role.order_confirmed_lambda_role.arn
+  handler          = var.lambda_order_confirmed.handler
   source_code_hash = data.archive_file.lambda.output_base64sha256
-
-  runtime = var.lambda_order_confirmed.runtime
+  runtime          = var.lambda_order_confirmed.runtime
+  #definindo as layers:
+  layers = [aws_lambda_layer_version.node_modules.arn]
 
 
   vpc_config {
