@@ -1,7 +1,7 @@
 //esse documentdb servira para geracao dos relatorios dentro da aplicacao web
 
 resource "aws_secretsmanager_secret" "documentdb" {
-  name = "nsse-documentdb-secret"
+  name = var.document_db_cluster.secret_name
   tags = var.tags
 }
 
@@ -13,7 +13,7 @@ data "aws_secretsmanager_random_password" "documentdb" {
 resource "aws_secretsmanager_secret_version" "first" {
   secret_id = aws_secretsmanager_secret.documentdb.id
   secret_string = jsondecode({
-    secret_string = "nsse"
+    secret_string = var.document_db_cluster.master_username
     password      = data.aws_secretsmanager_random_password.documentdb.random_password
   })
   //para evitar renovacao a cada terraform apply:
