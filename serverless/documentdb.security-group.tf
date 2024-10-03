@@ -23,3 +23,12 @@ resource "aws_security_group" "documentdb" {
   })
 }
 
+resource "aws_security_group_rule" "documentdb_self" {
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  self              = true
+  security_group_id = aws_security_group.documentdb.id
+}
+
