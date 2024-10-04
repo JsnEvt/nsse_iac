@@ -1,0 +1,8 @@
+#handlers ira disparar outras tasks durante a instalacao
+#nesse caso, faremos o start do servico CRI-O
+
+---
+- name: Start CRI-O service
+  ansible.builtin.systemd_service:
+    state: started
+    name: crio

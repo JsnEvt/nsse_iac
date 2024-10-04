@@ -1,0 +1,4 @@
+---
+- include_taks: repository.yml
+- include_taks: install.yml
+- include_taks: network-configuration.yml

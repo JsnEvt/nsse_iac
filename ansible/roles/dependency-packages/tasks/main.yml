@@ -6,5 +6,6 @@
       - ca-certificates
       - curl
       - gpg
+      - software-properties-common #dependencia do CRI-O
       #(pacotes do kubernetes)
-    update_cache: yes #e como o uso do sudo apt-get update
+    update_cache: true #e como o uso do sudo apt-get update

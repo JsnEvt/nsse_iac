@@ -23,3 +23,33 @@ para conectarmos as instancias privadas.
 
 Antes de instalarmos os pacotes do kubernetes, precisamos fazer o download da public signing key.
 A documentacao do kubernetes mostra isso.
+
+---
+
+Agora sera inserido o CRI - Container Runtime Interfaces pq o cluster kubernetes
+nao cria containeres. Ele precisa de alguem que o faca e o Kubelet se comunica com
+a interface do container para realizar esta operacao.
+Usaremos o CRI-O como CRI.
+O kubelet gerencia o POD.
+
+---
+Instalando o container runtime - CRI-O
+dentro das instancias estamos usando o sistema operacional Debian.
+Antes, deve-se instalar as dependencias
+Durante a instalacao do CRIO(container runtime) tem outro step: 
+pode-se encontrar no github crio pq nao esta na documentacao.
+
+No arquivo README, instalation guide, instlations instructions, CRI-O packaging repository, start service
+
+---
+E possivel que ocorram erros durante o comando ansible-plabybook...  e seja necessario restartar
+o wsl usando o comando wsl --shutdown. Isso pode fazer com que o arquivo /etc/resolv.conf nao tenha
+sido reescrito.
+
+conteudo do resolv.conf:
+nameserver 0.0.0.0
+
+Assim, ele nao conseguia sair para a internet/AWS.
+
+verificando se o CRI-O esta rodando:
+service crio status

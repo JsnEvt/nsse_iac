@@ -1,0 +1,10 @@
+---
+- name: Adding Signing key for CRIO-O
+  ansible.builtin.apt_key:
+    url: https://pkgs.k8s.io/addons:/cri-o:/stable:/$CRIO_VERSION/deb/Release.key
+    keyring: /etc/apt/keyrings/cri-o-apt-keyring.gpg
+
+- name: Add CRIO-O Repository
+  ansible.builtin.apt_repository:
+    repo: deb [signed-by=/etc/apt/keyrings/cri-o-apt-keyring.gpg] https://pkgs.k8s.io/addons:/cri-o:/stable:/$CRIO_VERSION/deb/ /
+    state: present

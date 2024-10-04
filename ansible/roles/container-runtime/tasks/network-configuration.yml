@@ -1,0 +1,9 @@
+#essas configuracoes se devem ao fato de que o cluster kubernetes trabalha
+#com varias interfaces e as configuracoes abaixo sao para habilita-las.
+
+---
+- name: Enabling Ipv4 Forwarding
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: 1
+    state: present
