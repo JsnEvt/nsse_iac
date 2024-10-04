@@ -1,5 +1,4 @@
-//para fazer o ping nas instancias do playbook
-
+#para fazer o ping nas instancias do playbook
 ---
 - name: Ping control planes
   hosts: control_planes
@@ -10,6 +9,4 @@
   tasks:
     - name: Ping control control_planes
       ansible.builtin.ping:
-
-
-//comando ansbile: ansible-playbook -i production site.yml
+#comando ansbile: ansible-playbook -i production site.yml
