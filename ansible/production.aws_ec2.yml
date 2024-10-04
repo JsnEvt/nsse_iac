@@ -1,0 +1,21 @@
+# lista de instancias (pelo i-xxxxxxx)
+
+# -----
+# apos feito as instalacoes do boto3 e do botocore na propria maquina,
+# podemos trabalhar com oansible de forma dinamica.
+
+# o nome do arquivo devera ser renomeado para o xxx.aws_ec2.yml
+# para que seja utilizado como inventario dinamico.
+
+plugin: amazon.aws.aws_ec2
+profile: aserdefinido
+regions:
+  - us-east-1
+groups:
+  control_planes: "'nsse-production-control-plane' in tags.Name"
+  workers: "'nsse-production-worker' in tags.Name"
+hostnames:
+  - instance-id
+# ansible-inventory -i production.aws_ec2.yml --graph
+# listara as maquinas e dividira em grupos conforme definido nas instrucoes
+
