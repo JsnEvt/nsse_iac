@@ -1,0 +1,9 @@
+---
+- name: Install Kubectl, Kubeadm e Kubelet
+  ansible.builtin.apt:
+    name:
+      - Kubectl
+      - Kubeadm
+      - Kubelet
+    state: present
+    update_cache: true

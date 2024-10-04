@@ -1,0 +1,13 @@
+---
+#hold - para evitar as atualizacoes que nao foram solicitadas.
+#atualizacoes podem comprometer o funcionamento do cluster kubernetes
+#abaixo, usamos um loop
+
+- name: Hold Kubetcl, Kubeadm e Kubelet packages
+  dpkg_selections:
+    name: "{{ item }}"
+    selection: hold
+  loop:
+    - kubectl
+    - kubeadm
+    - kubelet

@@ -1,0 +1,10 @@
+---
+- name: Adding public signing key for kubernets
+  ansible.builtin.apt_key:
+    url: https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key
+    keyring: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+- name: Add Kubernets Repository
+  ansible.builtin.apt_repository:
+    repo: deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /
+    state: present

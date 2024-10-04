@@ -18,3 +18,8 @@ para fazer as instalacoes dos recursos podemos usar a funcao builtin do apt modu
 apos rodar o script de instalacao, podemos fazer 
 aws ssm start-session --target i-xxxxxxx 
 para conectarmos as instancias privadas.
+
+---
+
+Antes de instalarmos os pacotes do kubernetes, precisamos fazer o download da public signing key.
+A documentacao do kubernetes mostra isso.

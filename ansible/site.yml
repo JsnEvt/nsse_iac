@@ -5,4 +5,5 @@
   become: true
   roles:
     - dependency-packages
+    - kube-packages
 #comando ansbile: ansible-playbook -i production site.yml
