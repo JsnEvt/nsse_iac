@@ -1,12 +1,8 @@
 #para fazer o ping nas instancias do playbook
 ---
-- name: Ping control planes
-  hosts: control_planes
+- name: Creating Kube Adm Kubernetes cluster
+  hosts: aws_ec2 #para instalar em todos
   become: true
-  vars:
-    ansible_connection: aws_ssm
-    ansible_aws_ssm_bucket_name: nsse-ansible-ssm
-  tasks:
-    - name: Ping control control_planes
-      ansible.builtin.ping:
+  roles:
+    - dependency-packages
 #comando ansbile: ansible-playbook -i production site.yml

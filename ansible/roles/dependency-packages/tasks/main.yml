@@ -1,0 +1,10 @@
+---
+- name: Installing dependency packages
+  ansible.builtin.apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gpg
+      #(pacotes do kubernetes)
+    update_cache: yes #e como o uso do sudo apt-get update

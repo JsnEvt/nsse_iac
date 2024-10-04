@@ -1,0 +1,20 @@
+Instalando o kubeADM dentro dos scripts ansible
+
+O ansible como um pipeline instalara os pacotes dentro das instancias
+inventariadas no playbook.
+
+MAQUINAS MICRO NAO FUNCIONAM COM KUBERNETES PQ NAO ATINGEM OS REQUISITOS MINIMOS.
+2GB RAM OU 2CPU
+
+Iniciamos a instalacao do kubeadm, kubelet e kubectl nas instancias da nuvem 
+para podermos gerenciarmos a partir da nossa maquina.
+
+primeiramente criamos uma role para instalar as dependencias:
+baseado na documentacao, criamos as pastas:
+roles/dependency-packages/tasks/main.yml
+
+para fazer as instalacoes dos recursos podemos usar a funcao builtin do apt module do ansible
+
+apos rodar o script de instalacao, podemos fazer 
+aws ssm start-session --target i-xxxxxxx 
+para conectarmos as instancias privadas.
