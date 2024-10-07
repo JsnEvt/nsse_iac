@@ -7,4 +7,9 @@
     - dependency-packages
     - kube-packages
     - container-runtime
-#comando ansbile: ansible-playbook -i production site.yml
+    #comando ansbile: ansible-playbook -i production site.yml
+    - kubeadm-init-first-master
+    #comando ansbile para rodar a linha acima:
+    #ansible-playbook -i production site.yml --ask-become-pass
+    #isso e uma integracao do terraform com o ansible para pegar a informacao
+    #do DNS do network load balancer
