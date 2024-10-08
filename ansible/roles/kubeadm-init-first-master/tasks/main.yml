@@ -1,21 +1,4 @@
 ---
-#Para obter o DNS do network load balancer atraves de um processo chamado
-#escrita de arquivo.
-- name: Terraform Output
-  shell: terraform output -json > outputs.json
-  args:
-    chdir: "{{terraform_path}}/server"
-  #para ser executada na maquina control node(a maq.q esta executando o Ansible)
-  delegate_to: localhost
-  #o Ansible cria um ambiente virtual e precisamos passar as variaveis para o mesmo:
-  environment:
-    AWS_REGION: "{{aws_region}}"
-    AWS_ACCESS_KEY: "{{aws_access_key}}"
-    AWS_SECRET_ACCESS_KEY: "{{aws_secret_access_key}}"
-
-- name: Get NLB DNS Name
-  vars:
-    terraform_outputs: "{{lookup('file', '{{terraform_path}}/server/outputs.json')}}"
-    nlb_dns_name: "{{terraform_outputs.nlb_dns_name.value}}"
-  debug:
-    var: nlb_dns_name
+- include_tasks: terraform-outputs.yml
+- include_tasks: upload-template.yml
+- include_tasks: kubeadm-init.yml

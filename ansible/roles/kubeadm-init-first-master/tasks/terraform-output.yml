@@ -1,0 +1,14 @@
+---
+#Para obter o DNS do network load balancer atraves de um processo chamado
+#escrita de arquivo.
+- name: Terraform Output
+  shell: terraform output -json > outputs.json
+  args:
+    chdir: "{{terraform_path}}/server"
+  #para ser executada na maquina control node(a maq.q esta executando o Ansible)
+  delegate_to: localhost
+  #o Ansible cria um ambiente virtual e precisamos passar as variaveis para o mesmo:
+  environment:
+    AWS_REGION: "{{aws_region}}"
+    AWS_ACCESS_KEY: "{{aws_access_key}}"
+    AWS_SECRET_ACCESS_KEY: "{{aws_secret_access_key}}"

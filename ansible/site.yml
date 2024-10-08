@@ -8,8 +8,15 @@
     - kube-packages
     - container-runtime
     #comando ansbile: ansible-playbook -i production site.yml
-    - kubeadm-init-first-master
+    # - kubeadm-init-first-master
     #comando ansbile para rodar a linha acima:
     #ansible-playbook -i production site.yml --ask-become-pass
     #isso e uma integracao do terraform com o ansible para pegar a informacao
     #do DNS do network load balancer
+
+---
+- name: KubeAdm Init First Control Plane
+  hosts: control_planes[0]
+  become: true
+  roles:
+    - kubeadm-init-first-master
