@@ -33,3 +33,11 @@
     KUBECONFIG: "{{kube_config}}"
   roles:
     - join-control-planes
+
+- name: Join workers
+  hosts: workers
+  become: true
+  environment:
+    KUBECONFIG: "{{kube_config}}"
+  roles:
+    - join-workers

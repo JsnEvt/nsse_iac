@@ -7,8 +7,14 @@
   shell: kubeadm init phase upload-certs --upload-certs | tail -n 1
   register: certificate_key_output
 
-- name: Write join command to file
+- name: Write control plane join command to file
   copy:
     content: "{{join_command_output.stdout }}--control-plane --certificate-key {{certificate_key_output.stdout}}"
     dest: /tmp/kubeadm-join-control-plane.txt
+  delegate_to: localhost
+
+- name: Write worker join command to file
+  copy:
+    content: "{{join_command_output.stdout }}"
+    dest: /tmp/kubeadm-join-worker.txt
   delegate_to: localhost
