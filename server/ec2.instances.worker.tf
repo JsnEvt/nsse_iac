@@ -31,6 +31,7 @@ module "ec2_workers_instances" {
 
     instance_tags = merge(
       { PatchGroup = var.patch_group },
+      #as informacoes abaixo vem do readme do kubernetes/autoscaler do github, para habilitar o auto-discovery setup
       {
         "k8s.io/cluster-autoscaler/enabled"                 = true,
         "k8s.io/cluster-autoscaler/devops-na-nuvem-cluster" = "owned",
