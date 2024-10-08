@@ -31,6 +31,10 @@ module "ec2_workers_instances" {
 
     instance_tags = merge(
       { PatchGroup = var.patch_group },
+      {
+        "k8s.io/cluster-autoscaler/enabled"                 = true,
+        "k8s.io/cluster-autoscaler/devops-na-nuvem-cluster" = "owned",
+      },
       var.tags,
       var.worker_autoscaling_group.instance_tags
     )
