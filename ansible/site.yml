@@ -1,9 +1,10 @@
 #para fazer o ping nas instancias do playbook
 ---
-- name: Creating Kube Adm Kubernetes cluster
+- name: Setting up cluster
   hosts: aws_ec2 #para instalar em todos
   become: true
   roles:
+    - hostnames
     - dependency-packages
     - kube-packages
     - container-runtime
