@@ -18,5 +18,8 @@
 - name: KubeAdm Init First Control Plane
   hosts: control_planes[0]
   become: true
+  environment:
+    KUBECONFIG: "{{kube_config}}"
   roles:
     - kubeadm-init-first-master
+    - container-network
