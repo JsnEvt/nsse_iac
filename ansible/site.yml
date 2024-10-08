@@ -15,11 +15,21 @@
     #do DNS do network load balancer
 
 ---
-- name: KubeAdm Init First Control Plane
+- name: Init Cluster
   hosts: control_planes[0]
   become: true
   environment:
     KUBECONFIG: "{{kube_config}}"
   roles:
-    - kubeadm-init-first-master
+    - init-cluster
     - container-network
+
+---
+- name: Join control planes
+  #todos control_planes menos no primeiro:
+  hosts: control_planes:!control_planes[0]
+  become: true
+  environment:
+    KUBECONFIG: "{{kube_config}}"
+  roles:
+    - join-control-planes

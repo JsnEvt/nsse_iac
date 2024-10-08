@@ -1,0 +1,6 @@
+---
+#executando o comando que esta no txt
+- name: Join control planes
+  vars:
+    join_control_plane: "{{lookup('file', /tmp/kubeadm-join-control-plane.txt)}}"
+  shell: "{{join_control_plane}}"
