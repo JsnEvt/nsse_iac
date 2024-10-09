@@ -95,4 +95,11 @@ kubectl get po
 ---
 Durante a experiencia no autoscaler houve uma ocorreencia de nos nao registrados,
 diminuindo o volume das instancias quando nao foi solicitado essa operacao.
-Nos nao registrados referem-se ao provider Id.
+Nos nao registrados referem-se ao provider Id. Ate entao, o scale out esta funcionando.
+
++ comandos:
+kubectl edit node ip-xx-xx-x-x.ec2.internal
+
+assim, podemos visualizar o providerID dentro do bloco spec do metadata do pod.
+
+

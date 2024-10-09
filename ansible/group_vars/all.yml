@@ -7,3 +7,4 @@ aws_access_key: AIDA5FTZDOM6GOWKBM25M
 aws_secret_access_key: stringaleatoriageradanaaws
 aws_profile: aserdefinido
 kube_config: /etc/kubernetes/admin.conf
+kube_config_worker: /etc/kubernetes/kubelet.conf
