@@ -1,0 +1,8 @@
+---
+- name: Upload cluster auto scaler file
+  copy:
+    src: deploy.yml
+    dest: /home/admin/cluster-autoscaler.yml
+
+- name: Installing cluster auto scaler
+  shell: kubectl apply -f /home/admin/cluster-autoscaler.yml

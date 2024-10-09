@@ -30,15 +30,20 @@
   #todos control_planes menos no primeiro:
   hosts: control_planes:!control_planes[0]
   become: true
-  environment:
-    KUBECONFIG: "{{kube_config}}"
   roles:
     - join-control-planes
 
 - name: Join workers
   hosts: workers
   become: true
+  roles:
+    - join-workers
+
+---
+- name: Setting up cluster auto scaler
+  hosts: control_planes[0]
+  become: true
   environment:
     KUBECONFIG: "{{kube_config}}"
   roles:
-    - join-workers
+    - cluster-autoscaler
