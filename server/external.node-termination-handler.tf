@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "node_termination_queue_policy" {
     }
 
     actions   = ["sqs:SendMessage"]
-    resources = ["arn:aws:sqs:${data.aws_region.current}:${data.aws_caller_identity.current.current}:NodeTerminationQueue"]
+    resources = ["arn:aws:sqs:${data.aws_region.current.name}:${data.aws_caller_identity.current.current.account_id}:NodeTerminationQueue"]
   }
 }
 
@@ -45,7 +45,7 @@ resource "aws_sqs_queue" "node_termination" {
   tags = var.tags
 }
 
-resource "aws_iam_role" "instance_role" {
+resource "aws_iam_role" "node_termination" {
   name               = "nsse-production-node-termination-role"
   assume_role_policy = data.aws_iam_policy_document.node_termination_trust_policy.json
   managed_policy_arns = [
@@ -58,6 +58,10 @@ data "aws_iam_policy_document" "node_termination" {
     effect    = "Allow"
     resources = ["*"]
     actions = [
+      #as duas primeiras e para a instancia ter as permissoes para acessar o ECR e fazer
+      #os acessos e a obtencao do token, para que possa se autentica de dentro do no
+      "ecr-public:GetAuthorizationToken",
+      "sts:GetServiceBearerToken",
       "autoscaling:CompleteLifecycleAction",
       "autoscaling:DescribeAutoScalingInstances",
       "autoscaling:DescribeTags",
@@ -86,6 +90,9 @@ resource "aws_autoscaling_lifecycle_hook" "node_termination" {
   heartbeat_timeout       = 300
   lifecycle_transition    = "autoscaling:EC2_INSTANCE_TERMINATING"
   notification_target_arn = aws_sqs_queue.node_termination.arn
-  role_arn                = aws_iam_role.instance_role.arn
+  role_arn                = aws_iam_role.node_termination.arn
 
 }
+
+#comando para verificar se o node-termination esta rodando/monitorando:
+#kubectl -n kube-system logs (nome_do_pod_do_node_termination)

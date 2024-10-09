@@ -176,7 +176,8 @@ spec:
             - --expander=least-waste
             - --skip-nodes-with-system-pods=false
             #cooldown:
-            - --scale-down-delay-after-add=5m
+            - --scale-down-delay-after-add=3m
+            - --scale-down-unneeded-time=3m
             - --node-group-auto-discovery=asg:tag=k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/devops-na-nuvem-cluster
           volumeMounts:
             - name: ssl-certs
