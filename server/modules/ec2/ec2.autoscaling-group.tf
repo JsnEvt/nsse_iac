@@ -45,6 +45,9 @@ resource "aws_autoscaling_group" "this" {
     max_healthy_percentage = var.auto_scaling_group.instance_maintenance_policy.max_healthy_percentage
   }
 
+  #a linha abaixo refere-se as atividades do node-termination
+  suspended_processes = ["AZRebalance"]
+
   //bloco dinamico para iterar sobre todos os blocos "tags" que se repetem
   //mapeando as tags para um dicionario para serem iterados
   //e necessario informar o codigo abaixo para que, a cada nova criacao da instancia
