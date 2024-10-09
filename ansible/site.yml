@@ -39,6 +39,12 @@
   roles:
     - join-workers
 
+- name: Update launch template
+  hosts: localhost
+  gather_facts: false
+  roles:
+    - update-launch-template
+
 ---
 - name: Setting up cluster auto scaler
   hosts: control_planes[0]

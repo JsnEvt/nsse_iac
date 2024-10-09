@@ -66,8 +66,7 @@ sysctl -w net.ipv4.ip_forward=1
 #a funcao abaixo ira vincular as novas instancias ao DNS do network load balancer.
 function joinWorkerNodes(){
   #{{joinWorkerCommand}}
-  #o comando e copiado para esta linha
-  #kubeadm...........
+  #o comando agora sera colocado dentro de uma variavel quando trabalhamos com o Jinja/ext.j2
 }
 
 #A essa altura, ele realiza um teste alterando o launch template original(dentro do console da aws)
