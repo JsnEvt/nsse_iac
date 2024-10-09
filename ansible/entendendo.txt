@@ -57,3 +57,42 @@ service crio status
 ---
 O cluster autoscaler fara uma interacao com  o auto scaling group da aws, mudando a quantidade de instancias
 desejadas. O script userdata sera necessario para atualizar o escalonamento das instancias dentro do cluster autoscaler
+
+---
+COMANDOS KUBECTL:
+
+kubectl get nodes
+kubectl get po -A -n kube-system
+
+comando para verificar logos dentro do cluster 
+kubectl logs -l app=cluster-autoscaler -n kube-system
+
+visualizar eventos:
+kubectl get events -n kube-system --sort-by .metadata.creationTimestamp
+
+visualizar pelo config-map (cm)
+kubectl get cm -n kube-system
+kubectl describe cm -n kube-system cluster-autoscaler-status
+
+criando um scripts de um deploy via linha de comando:
+kubectl create deploy nginx --image nginx --replicas 1 --dry-run=client -o yaml
+
+pode ser redirecionado usando o comando acima seguido do "> arquivo.yml"
+
+criando o pod:
+kubectl apply -f arquivo.yml (arquivo gerado na linha anterior)
+
+mais comandos:
+kubectl get po -o wide
+
+para ver o AUTOSCALER trabalhando
+aumentou-se o numero de replicas e a quantidade de instancias nao dava conta, deixando
+os pods pendentes.
+
+kubectl scale deploy nginx --replicas 10
+kubectl get po
+
+---
+Durante a experiencia no autoscaler houve uma ocorreencia de nos nao registrados,
+diminuindo o volume das instancias quando nao foi solicitado essa operacao.
+Nos nao registrados referem-se ao provider Id.
