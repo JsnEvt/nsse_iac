@@ -53,3 +53,7 @@ Assim, ele nao conseguia sair para a internet/AWS.
 
 verificando se o CRI-O esta rodando:
 service crio status
+
+---
+O cluster autoscaler fara uma interacao com  o auto scaling group da aws, mudando a quantidade de instancias
+desejadas. O script userdata sera necessario para atualizar o escalonamento das instancias dentro do cluster autoscaler
