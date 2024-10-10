@@ -102,4 +102,29 @@ kubectl edit node ip-xx-xx-x-x.ec2.internal
 
 assim, podemos visualizar o providerID dentro do bloco spec do metadata do pod.
 
+----
 
+No modulo de Cluster Kubernetes, aula 33 - Acesso local e port fowarding, e mostrado
+como acessar/operar com os comandos kubectl como se estivesse dentro do cluster kubernetes
+nas instancias privadas usando a tecnica de tunelamento, a partir da nossa maquina local.
+Comandos para isso abaixo:
+
+De dentro das instancias na raiz, 
+cat /etc/kubernetes/admin.conf
+
+copia o conteudo para um arquivo em sua maquina local
+sudo vim/nano admin.conf
+cola o conteudo do admin.conf
+
+apos isso, executa o port fowarding:
+aws ssm start-session --target i-xxxx --document-name AWS-StartPortForwardingSession --parameters '{"portNumber":["6443"], "localPortNumber":["6443"]}'
+
+O comando ainda nao funcionara pq esta apontando para o load balancer e nao consegue ser resolvido
+E necessario fazer o seguinte:
+exportamos o KUBECONFIG:
+export KUBECONFIG=/etc/kubernetes/admin.conf
+
+E edita o /etc/hosts
+sudo /etc/hosts
+e adiciona a linha abaixo:
+127.0.0.1 enderecodoloadbalancer(so o dominio)
