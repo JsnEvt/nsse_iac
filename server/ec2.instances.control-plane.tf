@@ -33,6 +33,9 @@ module "ec2_control_plane_instances" {
       //o merge sera feito com as linhas do PatchGroup e var.tags UNINDO com o 
       //var.control_plane_autoscaling_group.instance_tags (onde foi definido o Name)
       { PatchGroup = var.patch_group },
+      {
+        "kubernetes.io/cluster/devops-na-nuvem-cluster" = "owned"
+      },
       var.tags,
       var.control_plane_autoscaling_group.instance_tags
     )

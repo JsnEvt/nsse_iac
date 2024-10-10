@@ -4,6 +4,8 @@ kind: InitConfiguration
 nodeRegistration:
   name: "ec2-10-100-0-1"
   criSocket: "unix:///var/run/crio/crio.sock"
+  kubeletExtraArgs:
+    cloud-provider: external
 localAPIEndpoint:
   advertiseAddress: "{{ansible_default_ipv4.address}}"
   bindPort: 6443
@@ -19,4 +21,15 @@ controlPlaneEndpoint: "{{nlb_dns_name}}:6443"
 apiServer:
   certSANs:
     - "localhost"
+  extraArgs:
+    cloud-provider: external
 clusterName: "devops-na-nuvem-cluster"
+controllerManager:
+  extraArgs:
+    cloud-provider: external
+
+
+
+#Informacoes de novas configuracoes do cluster-configuration para a entrada do cloud-provider
+#podem ser encontradas nessa url: 
+#https://blog.scottlowe.org/2021/10/12/using-the-external-aws-cloud-provider-for-kubernetes/

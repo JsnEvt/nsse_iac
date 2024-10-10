@@ -36,6 +36,7 @@ module "ec2_workers_instances" {
         "k8s.io/cluster-autoscaler/enabled"                 = true,
         "k8s.io/cluster-autoscaler/devops-na-nuvem-cluster" = "owned",
         "aws-node-termination-handler/managed"              = true,
+        "kubernetes.io/cluster/devops-na-nuvem-cluster"     = "owned"
       },
       var.tags,
       var.worker_autoscaling_group.instance_tags
