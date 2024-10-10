@@ -62,5 +62,6 @@
     - cloud-controller
     - node-termination
     - cluster-autoscaler
+    - argocd
     - metrics-server
     - load-balancer-controller
