@@ -65,3 +65,4 @@
     - argocd
     - metrics-server
     - load-balancer-controller
+    - container-storage
