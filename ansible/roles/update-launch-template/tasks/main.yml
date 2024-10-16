@@ -9,9 +9,9 @@
 - name: Update worker launch template
   vars:
     terraform_outputs: "{{lookup('file', '{{terraform_path}}/server/outputs.json')}}"
-    worker_lauch_template_id: "{{terraform_outputs.worker_launch_template_id.value}}"
+    worker_launch_template_id: "{{terraform_outputs.worker_launch_template_id.value}}"
   environment:
     AWS_PROFILE: "{{aws_profile}}"
   ec2_launch_template:
-    template_id: "{{worker_lauch_template_id}}"
+    template_id: "{{worker_launch_template_id}}"
     user_data: "{{lookup('file', '/tmp/worker-user-data-v2.sh') | b64encode}}"

@@ -29,7 +29,9 @@ resource "aws_security_group" "postgresql" {
 
 //o bloco abaixo servira para criar regras para que as SG nao sejam criadas 
 //mesmo sem modificacoes durante o terraform apply. Isso esta ocorrendo
-//devido a referencias cirfulares definidas neste arquivo
+//devido a referencias circulares definidas neste arquivo
+//essas referencias permitem que o proxy rds e o rds possam usar as mesmas 
+//regras de permissionamento
 
 resource "aws_security_group_rule" "self" {
   type              = "ingress"

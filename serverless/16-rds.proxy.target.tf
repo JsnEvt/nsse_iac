@@ -1,3 +1,5 @@
+//pra informar onde esta batendo a nivel do cluster(group)
+
 resource "aws_db_proxy_default_target_group" "main" {
   db_proxy_name = aws_db_proxy.this.name
 

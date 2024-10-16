@@ -25,10 +25,10 @@ function installSystemsManagerAgentOnEc2(){
 function installKubernetesDependencyPackages(){
   #dois comandos apt-get podera incorrer em erros de locking(a propria maquina esta rodando algum processo em paralelo
   #enquanto cria a instancia, usando este mesmo comando). eis o motivo pelo qual, lancaremos uma 
-  #nova instrucao: -o DPKG::Lock::Timeout=5
+  #nova instrucao: -o DPKg::Lock::Timeout=5
       sleep 30
-      apt-get update -o DPKG::Lock::Timeout=5 -y
-      apt-get install -o DPKG::Lock::Timeout=5 -y apt-transport-https \
+      apt-get update -o DPKg::Lock::Timeout=5 -y
+      apt-get install -o DPKg::Lock::Timeout=5 -y apt-transport-https \
        ca-certificates \
        curl \
        gpg \
@@ -42,8 +42,8 @@ function installKubernetesPackages(){
    echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /' | \
     tee /etc/apt/sources.list.d/kubernetes.list
 
-  apt-get update -o DPKG::Lock::Timeout=5 -y
-  apt-get install -o DPKG::Lock::Timeout=5 -y kubelet kubeadm kubectl
+  apt-get update -o DPKg::Lock::Timeout=5 -y
+  apt-get install -o DPKg::Lock::Timeout=5 -y kubelet kubeadm kubectl
   apt-mark hold kubelet kubeadm kubectl
 }
 
@@ -54,8 +54,8 @@ curl -fsSL https://pkgs.k8s.io/addons:/cri-o:/stable:/v1.30/deb/Release.key | \
 echo "deb [signed-by=/etc/apt/keyrings/cri-o-apt-keyring.gpg] https://pkgs.k8s.io/addons:/cri-o:/stable:/v1.30/deb/ /" | \
     tee /etc/apt/sources.list.d/cri-o.list
 
-apt-get update -o DPKG::Lock::Timeout=5 -y
-apt-get install -o DPKG::Lock::Timeout=5 -y cri-o
+apt-get update -o DPKg::Lock::Timeout=5 -y
+apt-get install -o DPKg::Lock::Timeout=5 -y cri-o
 systemctl start crio.service
 sysctl -w net.ipv4.ip_forward=1
 }
