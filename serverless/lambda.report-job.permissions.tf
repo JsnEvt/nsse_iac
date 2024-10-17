@@ -18,7 +18,7 @@ resource "aws_iam_policy" "report_job_lambda_policy" {
       Resource = [aws_rds_cluster.this.master_user_secret[0].secret_arn,
         aws_secretsmanager_secret.documentdb.arn,
         "${aws_s3_bucket.this.arn}/*",
-      aws_sns_topic.order_confirmed._topic.arn]
+      aws_sns_topic.order_confirmed_topic.arn]
     }]
   })
 }

@@ -16,7 +16,7 @@ resource "aws_iam_policy" "order_confirmed_lambda_policy" {
         "sns:Publish"
       ],
       Resource = [aws_rds_cluster.this.master_user_secret[0].secret_arn,
-      aws_sns_topic.order_confirmed._topic.arn]
+      aws_sns_topic.order_confirmed_topic.arn]
     }]
   })
 }
