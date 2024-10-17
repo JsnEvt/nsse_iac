@@ -1,3 +1,4 @@
+#para empacotar o arquivo:
 data "archive_file" "node_modules_layer" {
   type        = var.lambda_layer_node_modules.package_type
   source_dir  = "${path.module}/${var.lambda_layer_node_modules.source_dir}"

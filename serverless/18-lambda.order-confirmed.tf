@@ -38,3 +38,8 @@ resource "aws_lambda_function_url" "order_confirmed" {
   function_name      = aws_lambda_function.order_confirmed.function_name
   authorization_type = "AWS_IAM"
 }
+
+//para o uso da autorizacao (AWS_IAM), um usuario foi criado, como exemplo 
+//no console da AWS para extracao da security credentials. 
+//Estes mesmos dados foi informado no programa de teste de requisicoes como 
+//o postman ou insomnia, usando a url criada com este recurso acima 

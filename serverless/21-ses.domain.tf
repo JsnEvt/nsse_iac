@@ -12,6 +12,8 @@ resource "aws_route53_record" "ses_verification_record" {
   records = [aws_ses_domain_identity.this.verification_token]
 }
 
+//para verificar que o e-mail e autentico, visto que tera uma chave no 
+//cabecalho:
 resource "aws_ses_domain_dkim" "this" {
   domain = aws_ses_domain_identity.this.domain
 }
@@ -25,6 +27,7 @@ resource "aws_route53_record" "ses_dkim_record" {
   records = ["${aws_ses_domain_dkim.this.dkim_tokens[count.index]}.dkim.amazonses.com"]
 }
 
+//para definir como os servidores reagem as configuracoes de e-mails que falham (dmarc):
 resource "aws_route53_record" "ses_dmark_record" {
   zone_id = data.aws_route53_zone.this.zone_id
   name    = "_dmarc.${var.domain}"
@@ -53,5 +56,5 @@ resource "aws_route53_record" "ses_domain_mail_from_txt" {
   name    = aws_ses_domain_mail_from.this.mail_from_domain
   type    = "TXT"
   ttl     = "600"
-  records = ["v=spf1 include:amazonses.com ~all"]
+  records = ["v=spf1 include:amazonses.com -all"]
 }
