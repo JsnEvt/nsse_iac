@@ -1,3 +1,5 @@
+//essa operacao de criacao do secrets e necessaria para que o documentdb possa 
+//ter uma senha de acesso atrelada ao secrets manager
 //esse documentdb servira para geracao dos relatorios dentro da aplicacao web
 
 resource "aws_secretsmanager_secret" "documentdb" {
@@ -5,6 +7,7 @@ resource "aws_secretsmanager_secret" "documentdb" {
   tags = var.tags
 }
 
+//para gerar uma secret aleatoria
 data "aws_secretsmanager_random_password" "documentdb" {
   password_length     = 30
   exclude_punctuation = true

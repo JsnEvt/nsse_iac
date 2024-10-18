@@ -22,7 +22,7 @@ resource "aws_route53_record" "ses_dkim_record" {
   count   = 3
   zone_id = data.aws_route53_zone.this.zone_id
   name    = "${aws_ses_domain_dkim.this.dkim_tokens[count.index]}._domainkey"
-  type    = "TXT"
+  type    = "CNAME"
   ttl     = "600"
   records = ["${aws_ses_domain_dkim.this.dkim_tokens[count.index]}.dkim.amazonses.com"]
 }
@@ -31,7 +31,7 @@ resource "aws_route53_record" "ses_dkim_record" {
 resource "aws_route53_record" "ses_dmark_record" {
   zone_id = data.aws_route53_zone.this.zone_id
   name    = "_dmarc.${var.domain}"
-  type    = "CNAME"
+  type    = "TXT"
   ttl     = "600"
   records = ["v=DMARC1,p=none;"]
 }

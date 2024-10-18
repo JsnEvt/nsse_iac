@@ -3,7 +3,7 @@ resource "aws_security_group" "documentdb" {
   description = "Managing ports for DocumentDB"
   vpc_id      = data.aws_vpc.this.id
 
-  ingress = {
+  ingress {
     from_port       = 27017
     to_port         = 27017
     protocol        = "tcp"
