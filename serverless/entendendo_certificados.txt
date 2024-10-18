@@ -3,4 +3,4 @@ da URL que consta na aba de conectividade.
 Este certificado, que ficaria na pasta de report-job para se comunicar com o 
 DocumentDB e muito grande para ser armazenado no SecretsManager, por isso 
 resolveu-se colocar em um bucket s3 para que a lambda possa obter esse certificado
-de la, baixando-o
+de la, baixando-o O codigo fonte (index.ts) mostra isso
