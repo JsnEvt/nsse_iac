@@ -1,27 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -31,67 +8,125 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
+    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handler = void 0;
-const AWS = __importStar(require("aws-sdk"));
-const pg_1 = require("pg");
-const secretsManager = new AWS.SecretsManager();
-const sns = new AWS.SNS();
-const rdsProxyEndpoint = process.env.RDS_PROXY_ENDPOINT;
-const secretArn = process.env.RDS_SECRET_ARN;
-const snsTopicArn = process.env.SNS_TOPIC_ARN;
-const databaseName = process.env.RDS_DATABASE_NAME;
-const handler = (event, context) => __awaiter(void 0, void 0, void 0, function* () {
-    //Recuperando secret do banco de dados:
-    const secret = yield getSecret();
-    const client = new pg_1.Client({
-        host: rdsProxyEndpoint,
-        user: secret.username,
-        password: secret.password,
-        database: databaseName,
-        ssl: true,
-        port: 5432
-    });
-    if (!event || !event.Id) {
-        throw new Error('Id is missing from the event body');
-    }
-    //Conectando no banco de dados
-    yield client.connect();
-    try {
-        //Atualizando status da ordem para confirmado
-        const sql = `UPDATE "Order" SET "StatusId" = 1 WHERE "Id" = $1`;
-        const values = [event.Id];
-        const response = yield client.query(sql, values);
-        console.log('Order updated successfully:', response);
-        //publicando messagem no topico order-confirmed
-        yield publishToSns(JSON.stringify({ Id: event.Id }));
-        return response;
-    }
-    catch (error) {
-        console.error('Failed to update Order:', error);
-        throw error;
-    }
-    finally {
-    }
-    ;
+var AWS = require("aws-sdk");
+var pg_1 = require("pg");
+var secretsManager = new AWS.SecretsManager();
+var sns = new AWS.SNS();
+var rdsProxyEndpoint = process.env.RDS_PROXY_ENDPOINT;
+var secretArn = process.env.RDS_SECRET_ARN;
+var snsTopicArn = process.env.SNS_TOPIC_ARN;
+var databaseName = process.env.RDS_DATABASE_NAME;
+var handler = function (event, context) { return __awaiter(void 0, void 0, void 0, function () {
     function getSecret() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const data = yield secretsManager.getSecretValue({ SecretId: secretArn }).promise();
-            if ('SecretString' in data) {
-                return JSON.parse(data.SecretsString);
-            }
-            throw new Error('Secret not found');
+        return __awaiter(this, void 0, void 0, function () {
+            var data;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, secretsManager.getSecretValue({ SecretId: secretArn }).promise()];
+                    case 1:
+                        data = _a.sent();
+                        if ('SecretString' in data) {
+                            return [2 /*return*/, JSON.parse(data.SecretsString)];
+                        }
+                        throw new Error('Secret not found');
+                }
+            });
         });
     }
     function publishToSns(message) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const params = {
-                Message: message,
-                TopicArn: snsTopicArn,
-            };
-            yield sns.publish(params).promisse();
-            console.log('Message published to SNS topic:', message);
+        return __awaiter(this, void 0, void 0, function () {
+            var params;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        params = {
+                            Message: message,
+                            TopicArn: snsTopicArn,
+                        };
+                        return [4 /*yield*/, sns.publish(params).promise()];
+                    case 1:
+                        _a.sent();
+                        console.log('Message published to SNS topic:', message);
+                        return [2 /*return*/];
+                }
+            });
         });
     }
-});
+    var secret, client, sql, values, response, error_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, getSecret()];
+            case 1:
+                secret = _a.sent();
+                client = new pg_1.Client({
+                    host: rdsProxyEndpoint,
+                    user: secret.username,
+                    password: secret.password,
+                    database: databaseName,
+                    ssl: true,
+                    port: 5432
+                });
+                if (!event || !event.Id) {
+                    throw new Error('Id is missing from the event body');
+                }
+                //Conectando no banco de dados
+                return [4 /*yield*/, client.connect()];
+            case 2:
+                //Conectando no banco de dados
+                _a.sent();
+                _a.label = 3;
+            case 3:
+                _a.trys.push([3, 6, 7, 8]);
+                sql = "UPDATE \"Order\" SET \"StatusId\" = 1 WHERE \"Id\" = $1";
+                values = [event.Id];
+                return [4 /*yield*/, client.query(sql, values)];
+            case 4:
+                response = _a.sent();
+                console.log('Order updated successfully:', response);
+                //publicando messagem no topico order-confirmed
+                return [4 /*yield*/, publishToSns(JSON.stringify({ Id: event.Id }))];
+            case 5:
+                //publicando messagem no topico order-confirmed
+                _a.sent();
+                return [2 /*return*/, response];
+            case 6:
+                error_1 = _a.sent();
+                console.error('Failed to update Order:', error_1);
+                throw error_1;
+            case 7: return [7 /*endfinally*/];
+            case 8:
+                ;
+                return [2 /*return*/];
+        }
+    });
+}); };
 exports.handler = handler;

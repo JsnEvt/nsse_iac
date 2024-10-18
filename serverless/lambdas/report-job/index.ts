@@ -1,5 +1,5 @@
 import * as AWS from "aws-sdk"
-import { Cnlient } from "pg"
+import { Client } from "pg"
 import { Context } from "aws-lambda"
 import { MongoClient } from "mongodb"
 import * as fs from 'fs'

@@ -60,7 +60,7 @@ export const handler = async (event: any, context: Context) => {
       Message: message,
       TopicArn: snsTopicArn,
     };
-    await sns.publish(params).promisse();
+    await sns.publish(params).promise();
     console.log('Message published to SNS topic:', message)
   }
 }
