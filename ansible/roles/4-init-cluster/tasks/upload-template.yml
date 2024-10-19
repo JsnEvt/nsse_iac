@@ -4,5 +4,6 @@
     terraform_outputs: "{{lookup('file', '{{terraform_path}}/server/outputs.json')}}"
     nlb_dns_name: "{{terraform_outputs.nlb_dns_name.value}}"
   template:
+    #copiando o arquivo local para a maquina control plane:
     src: kubeadm-init.yml
     dest: /home/admin/kubeadm-config.yml

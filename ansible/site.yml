@@ -2,7 +2,10 @@
 ---
 - name: Setting up cluster
   hosts: aws_ec2 #para instalar em todos
-  become: true
+  become: true #become significa que ira fazer um sudo na minha maquina, entao, ele
+  #precisa de um password que e fornecido com o comando:
+  #andible-playbook -i production.aws_ec2.yml site.yml --ask-become-pass
+  #sendo solicitado a senha em tempo de execucao
   roles:
     - hostnames
     - dependency-packages

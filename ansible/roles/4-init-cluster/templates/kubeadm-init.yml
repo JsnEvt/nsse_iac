@@ -19,8 +19,8 @@ networking:
 kubernetesVersion: "v1.21.0"
 controlPlaneEndpoint: "{{nlb_dns_name}}:6443"
 apiServer:
-  certSANs:
-    - "localhost"
+  certSANs: #para ter acesso ao cluster remoto a partir da maquina local:
+    - "localhost" # 127.0.0.1
   extraArgs:
     cloud-provider: external
 clusterName: "devops-na-nuvem-cluster"

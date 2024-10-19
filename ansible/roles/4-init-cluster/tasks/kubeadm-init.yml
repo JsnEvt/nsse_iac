@@ -2,6 +2,7 @@
 - name: KubeAdm Init
   # reset para reinicializar o cluster novamente
   shell: kubeadm reset -f && kubeadm init --config /home/admin/kubeadm-init.yml
+  #register - para ver o output
   register: kubeadm_init_output
 
 - name: KubeAdm Init (Output)

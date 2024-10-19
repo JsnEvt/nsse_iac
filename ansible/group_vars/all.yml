@@ -1,7 +1,7 @@
 ansible_connection: aws_ssm
 ansible_aws_ssm_bucket_name: nsse-ansible-ssm
 #endereco de exemplo:
-terraform_path: /mnt/c/Repositories/nsse/terraform
+terraform_path: /mnt/c/utilitarios_e_programas/AWS/iac_nsse
 aws_region: us-east-1
 aws_access_key: AIDA5FTZDOM6GOWKBM25M
 aws_secret_access_key: stringaleatoriageradanaaws
