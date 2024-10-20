@@ -1,16 +1,25 @@
 ---
 - name: Generate join command
-  shell: kubeadm token create --print-job-command --ttl 0
+  shell: kubeadm token create --print-join-command --ttl 0
+  #ttl 0 = para que o comando nunca expire/sera util quando anexar novos workers
+  #usando o autoscaler
   register: join_command_output
 
 - name: Generate Certificate Key
   shell: kubeadm init phase upload-certs --upload-certs | tail -n 1
+  #tail -n 1 - para pegar a ultima linha e gravar no register abaixo:
   register: certificate_key_output
+
+# - name: Debug
+#   debug:
+#     var: join_command_output.stdout
 
 - name: Write control plane join command to file
   copy:
     content: "{{join_command_output.stdout }}--control-plane --certificate-key {{certificate_key_output.stdout}}"
     dest: /tmp/kubeadm-join-control-plane.txt
+    #foi gerada neste arquivo acima para ser usada em uma outra role/comunicacao inter-role
+    #este arquivo sera usado em join_control_plane/tasks/main.yml
   delegate_to: localhost
 
 - name: Write worker join command to file
