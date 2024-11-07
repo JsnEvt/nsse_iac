@@ -12,7 +12,7 @@ resource "aws_subnet" "publics" {
   map_public_ip_on_launch = var.public_subnets[count.index].map_public_ip_on_launch
 
   tags = merge({
-    Name = "${var.vpc_resources.vpc}-${var.public_subnets[count.index].name}"
+    Name = "${var.vpc_resources.vpc}-${var.public_subnets[count.index].name}",
     //a tag abaixo e para ser encontrada pelo AWS Load Balancer Controller do kubernetes
     "kubernetes.io/role/elb" = "1"
   }, var.tags)

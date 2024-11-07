@@ -1,4 +1,6 @@
 #Para gerenciamento de persistencia de volumes(ssd/hd)
+#o provisionamento dinamico favorece a alocacao de um volume persistente
+#e esta e a proposta deste recurso: CSI - Container storage interface
 #envolve: Pod/PersistentVolumeClaim/PersistentVolume/StorageClass/VolumeAttributes
 ---
 - name: Installing CSI Driver
