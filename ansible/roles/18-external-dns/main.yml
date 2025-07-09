@@ -1,0 +1,7 @@
+---
+#Se você cria um Ingress com o hostname app.seudominio.com, o ExternalDNS detecta isso e cria um
+#registro A ou CNAME no seu provedor DNS (como AWS Route 53), apontando para o IP do Load Balancer automaticamente.
+- name: Installing External DNS
+  shell: |
+    helm repo add external-dns https://kubernetes-sigs.github.io/external-dns/
+    helm upgrade --install external-dns external-dns/external-dns --version 1.17.0 -n kube-system
