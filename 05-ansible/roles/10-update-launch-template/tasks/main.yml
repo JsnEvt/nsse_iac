@@ -1,7 +1,9 @@
 - name: Creating worker launch template
   vars:
     joinWorkerCommand: "{{lookup('file', '/tmp/kubeadm-join-worker.txt')}}"
-    #quem criou o kubeadm-join-worker foi uma role
+    #conteudo do arquivo kubeadm-join-worker.txt =
+    #kubeadm join sse-production-cp-nlb-lksnflnsflnls.elb.us-east-1.amazonaws.com:6443 --token lnlksnaflkd.lnksldkfnlsnnfsl --discovery-token-ca-cert-hash sha:32165468431asd6f54a6s4fd98as3513df31
+    #quem criou o kubeadm-join-worker foi uma role(que passa as instrucoes para anexar as novas instancias)
   template:
     src: worker-user-data-v2.j2
     dest: /tmp/worker-launch-template.sh
