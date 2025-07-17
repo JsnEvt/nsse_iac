@@ -1,0 +1,4 @@
+no video 34, o professor aponta um bug que ocorre no Calico mostrando 
+nos target-groups que os alvos(INSTANCIAS) NAO estao health. 
+foi consultado as issues dentro github e a solucao adotada foi mudar
+para o Antrea que tem suporte a Network policy.
