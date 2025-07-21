@@ -1,6 +1,6 @@
-/*Componente responsavel, dentre outras coisas, pela remocao do pod que foi "desativado"
-pelo autoscaler/node-termination. Chamado cloud-controller-manager.
-*/
+#O DNS serve para gerenciar dominios dentro do cluster
+#Quando o ingress provisionar o load balancer, apontando para um derterminado dominio, ele adicionara os
+#registros no dominio que ele monitora.
 
 data "aws_iam_policy_document" "external_dns_policy" {
   statement {
