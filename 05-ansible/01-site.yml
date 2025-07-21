@@ -62,6 +62,7 @@
   environment:
     KUBECONFIG: "{{kube_config}}"
   roles:
+    - helm
     - cloud-controller
     - node-termination
     - cluster-autoscaler
