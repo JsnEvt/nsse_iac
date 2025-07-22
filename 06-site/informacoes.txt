@@ -1,0 +1,9 @@
+Quando os recursos de cloudfront e s3 foram criados,
+foi feito a build da pasta frontend no not-so-simple-ecommerce 
+gerando a pasta dist.
+Em seguida foi feito um sync da pasta dist para o s3 com o comando
+aws s3 sync dist/ s3://semdominio.com
+deve-se passar as credenciais
+aws_profile=contaaws_admin...
+
+E importante que o nome do bucket seja igual ao nome do alternate domain name
