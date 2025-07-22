@@ -1,8 +1,8 @@
-resource "aws_cloudfront_distribution" "s3_distribution" {
+resource "aws_cloudfront_distribution" "this" {
   origin {
-    domain_name = aws_s3_bucket.site.bucket_regional_domain_name
-    # origin_access_control_id = aws_cloudfront_origin_access_control.default.id
-    origin_id = aws_s3_bucket.site.bucket_regional_domain_name
+    domain_name              = aws_s3_bucket.site.bucket_regional_domain_name
+    origin_access_control_id = aws_cloudfront_origin_access_control.this.id
+    origin_id                = aws_s3_bucket.site.bucket_regional_domain_name
   }
 
   enabled             = true
