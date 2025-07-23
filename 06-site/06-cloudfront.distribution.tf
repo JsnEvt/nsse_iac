@@ -3,6 +3,16 @@ resource "aws_cloudfront_distribution" "this" {
   default_root_object = var.cloudfront.default_root_object
   price_class         = var.cloudfront.price_class
   aliases             = [var.cloudfront.domain]
+
+  #VPC ORIGIN - MEDIDA DE SEGURANCA/EDGE LOCATIONS
+  origin {
+    vpc_origin_config {
+      vpc_origin_id = aws_cloudfront_vpc_origin.alb.id
+    }
+    origin_id   = aws_cloudfront_vpc_origin.alb.id
+    domain_name = data.aws_lb.this.dns_name
+  }
+
   origin {
     domain_name              = aws_s3_bucket.site.bucket_regional_domain_name
     origin_access_control_id = aws_cloudfront_origin_access_control.this.id
