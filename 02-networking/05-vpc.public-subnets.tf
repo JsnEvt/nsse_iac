@@ -14,7 +14,8 @@ resource "aws_subnet" "publics" {
   tags = merge({
     Name = "${var.vpc_resources.vpc}-${var.public_subnets[count.index].name}",
     //a tag abaixo e para ser encontrada pelo AWS Load Balancer Controller do kubernetes
-    "kubernetes.io/role/elb" = "1"
+    //a tag foi excluida pois o load balancer agora e internal, na rede privada
+    //a tag foi para o vcp-private-subnets.tf
   }, var.tags)
   depends_on = [aws_vpc.this]
 }
