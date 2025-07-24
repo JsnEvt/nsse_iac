@@ -32,5 +32,10 @@ resource "aws_iam_role_policy_attachment" "order_confirmed_lambda_custom" {
   role       = aws_iam_role.order_confirmed_lambda_role.name
 }
 
+#1-criou-se a policy concedendo as pemissoes
+#2-criou-se o assume role para a lambda
+#3-anexou uma policy gerenciada
+#4-atachou a policy com a role
+
 
 
