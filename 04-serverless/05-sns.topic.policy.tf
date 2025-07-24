@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "sns_policy" {
     actions = [
       "sns:Publish",
       "sns:RemovePermission",
-      "sns: SetTopicAttributes",
+      "sns:SetTopicAttributes",
       "sns:DeleteTopic",
       "sns:ListSubscriptionsByTopic",
       "sns:GetTopicAttibutes",
@@ -21,3 +21,5 @@ data "aws_iam_policy_document" "sns_policy" {
     ]
   }
 }
+
+#Qualquer entidade da AWS ("*") tem permissão para executar várias ações no SNS, em qualquer tópico.
