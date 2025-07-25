@@ -29,6 +29,26 @@ resource "aws_cloudfront_distribution" "this" {
     viewer_protocol_policy = var.cloudfront.default_cache_behavior.viewer_protocol_policy
   }
 
+  /*nossa configuracao de cloudfront tem dois direcionamentos a saber:
+1 - s3 - frontend
+2 - alb - backend (que redireciona para o cluster)
+o behaviors visa encaminhar a request para o local apropridado
+path-pattern
+*/
+  dynamic "ordered_cache_behavior" {
+    for_each = var.cloudfront.ordered_cache_behaviors
+    content {
+      path_pattern             = ordered_cache_behavior.value.path_pattern
+      allowed_methods          = ordered_cache_behavior.value.allowed_methods
+      cached_methods           = ordered_cache_behavior.value.cached_methods
+      target_origin_id         = aws_cloudfront_vpc_origin.alb.id
+      cache_policy_id          = ordered_cache_behavior.value.cache_policy_id
+      origin_request_policy_id = ordered_cache_behavior.value.origin_request_policy_id
+      viewer_protocol_policy   = ordered_cache_behavior.value.viewer_protocol_policy
+    }
+  }
+
+
   restrictions {
     geo_restriction {
       restriction_type = "none"
