@@ -20,6 +20,7 @@ resource "aws_iam_role" "sns_topic_role" {
 
 #O serviço SNS (sns.amazonaws.com) tem permissão para assumir essa role.
 #Essa política permite que o serviço SNS assuma essa role para agir com as permissões atribuídas a ela.
+#AmazonSNSRole permitira o registro dos logs dentro do Cloudwatch
 
 #Em resumo simples:
 #Criar uma role IAM para o serviço SNS assumir, com permissões padrões para SNS, e com a política que

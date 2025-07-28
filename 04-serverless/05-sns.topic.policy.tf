@@ -23,3 +23,5 @@ data "aws_iam_policy_document" "sns_policy" {
 }
 
 #Qualquer entidade da AWS ("*") tem permissão para executar várias ações no SNS, em qualquer tópico.
+#em resources informariamos o sns dentro da nossa conta mas, foi colocado "*" para abrir
+#possibilidade de inscrever novas filas(subscriptions)
