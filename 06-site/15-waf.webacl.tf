@@ -9,6 +9,40 @@ resource "aws_wafv2_web_acl" "this" {
   }
 
   rule {
+    #regra bloquando as requisicoes que nao vem do Brasil
+    #caso ocorra, a requisicao recebera uma label suspicious conforme
+    #declarado em rule_label e passara para a proxima verificacao
+    name     = "00-CountChecker"
+    priority = 1
+
+    rule_label {
+      name = "nsse:suspicious:request"
+    }
+
+    action {
+      count {}
+    }
+
+    statement { #local onde declaramos os criterios
+      #nesse caso, restringindo ao Brasil
+      not_statement {
+        statement {
+          geo_match_statement {
+            country_codes = ["BR"]
+          }
+        }
+      }
+    }
+
+    visibility_config {
+      cloudwatch_metrics_enabled = true
+      metric_name                = "00-CountCheckerMetrics"
+      sampled_requests_enabled   = true
+    }
+  }
+
+
+  rule {
     name     = "98-SuspiciousRequestFlagger"
     priority = 98
 
@@ -84,3 +118,6 @@ resource "aws_wafv2_web_acl" "this" {
     sampled_requests_enabled   = true
   }
 }
+
+#No teste foi usado uma extensao do Chrome que se conecta como se estivesse
+#em outro pais, chamado Free VPN
