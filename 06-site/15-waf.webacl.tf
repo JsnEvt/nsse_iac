@@ -59,11 +59,10 @@ resource "aws_wafv2_web_acl" "this" {
     }
   }
 
-  #bloqueia a regra a partir do Tor(browser estranho para fins de testes)
-  #anonimato
+  #SQL Injection
   rule {
-    name     = "02-AWSManagedRulesAnonymousIpList"
-    priority = 3
+    name     = "03-AWSManagedRulesSQLiRuleSet"
+    priority = 4
 
     override_action {
       count {}
@@ -71,13 +70,13 @@ resource "aws_wafv2_web_acl" "this" {
 
     statement {
       managed_rule_group_statement {
-        name        = "AWSManagedRulesAnonymousIpList"
+        name        = "AWSManagedRulesSQLiRuleSet"
         vendor_name = "AWS"
       }
     }
     visibility_config {
       cloudwatch_metrics_enabled = true
-      metric_name                = "02-AWSManagedRulesAnonymousIpListMetrics"
+      metric_name                = "03-AWSManagedRulesSQLiRuleSetMetrics"
       sampled_requests_enabled   = true
     }
   }
