@@ -1,8 +1,8 @@
 #Criando a base de criterios de avaliacao de requests
 #as regras ainda serao adicionadas
 resource "aws_wafv2_web_acl" "this" {
-  name  = "waf-devopsnanuvem-com-webacl"
-  scope = "CLOUDFRONT"
+  name  = var.waf.name
+  scope = var.waf.scope
 
   default_action {
     allow {}
@@ -101,6 +101,28 @@ resource "aws_wafv2_web_acl" "this" {
       sampled_requests_enabled   = true
     }
   }
+
+  #XSS - Cross Site Scripting / tentativa de injecao de de scripts na pagina
+  rule {
+    name     = "05-AWSManagedRulesCommonRuleSet"
+    priority = 6
+
+    override_action {
+      count {}
+    }
+
+    statement {
+      managed_rule_group_statement {
+        name        = "AWSManagedRulesCommonRuleSet"
+        vendor_name = "AWS"
+      }
+    }
+    visibility_config {
+      cloudwatch_metrics_enabled = true
+      metric_name                = "05-AWSManagedRulesCommonRuleSetMetrics"
+      sampled_requests_enabled   = true
+    }
+  }
   rule {
     name     = "98-SuspiciousRequestFlagger"
     priority = 98
@@ -164,17 +186,15 @@ resource "aws_wafv2_web_acl" "this" {
   }
   #aqui esta sendo definido o corpo de resposta personalizado
   custom_response_body {
-    key = "403-CustomForbiddenResponse"
-    content = jsonencode({
-      message = "You are not allowed to perform the action you requested."
-    })
-    content_type = "APPLICATION_JSON"
+    key          = var.waf.custom_response_body.key
+    content      = jsonencode({ message = var.waf.custom_response_body.content })
+    content_type = var.waf.custom_response_body.content_type
   }
 
   visibility_config {
-    cloudwatch_metrics_enabled = true
-    metric_name                = "waf-devopsnanuvem-com-webacl-metrics"
-    sampled_requests_enabled   = true
+    cloudwatch_metrics_enabled = var.waf.visibility_config.cloudwatch_metrics_enabled
+    metric_name                = var.waf.visibility_config.metric_name
+    sampled_requests_enabled   = var.waf.visibility_config.sampled_requests_enabled
   }
 }
 
